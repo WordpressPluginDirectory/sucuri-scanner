@@ -4,7 +4,7 @@ Donate Link: https://sucuri.net/
 Tags: malware, security, firewall, scan, spam, virus, sucuri, protection, blocklist, detection, hardening, file integrity
 Requires at least: 3.6
 Tested up to: 6.6
-Stable tag: 1.9.5
+Stable tag: 1.9.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,9 +52,7 @@ This is perhaps the most underutilized security function. It’s the act of moni
 
 This is important because it gives you, the website owner, the ability to keep a good eye on the various changes occurring within your environment. Who is logging in? What changes are being made?
 
-This feature is logging all activity to the Sucuri cloud, for safe keeping. This ensures that an attacker is not able to wipe your forensic data and prevent further security analysis after a compromise. If an attacker is able to bypass your security controls, your security logs will be kept safe within the Sucuri Security Operations Center (SOC).
-
-This feature is particularly important to website / system administrators and security experts looking to understand what is going on with their website and when it’s happening.
+Since version 1.9.6, we have added support for filters in the audit logs, allowing you to filter by various event types and dates.
 
 = What is the file integrity monitoring =
 
@@ -206,6 +204,10 @@ This version adds an option to refresh the malware scan results on demand, as we
 Daniel is no longer maintaining the Sucuri plugin at GoDaddy. We have transferred it to a dedicated team to maintain and improve it.
 
 == Changelog ==
+= 1.9.6 =
+* Added support for filters in the audit logs
+* Updated messaging for infected sites
+
 = 1.9.5 =
 * Updated how the allow PHP files are handled in the integrity tool
 
