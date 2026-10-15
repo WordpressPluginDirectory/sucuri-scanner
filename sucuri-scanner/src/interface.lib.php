@@ -49,7 +49,7 @@ class SucuriScanInterface
     {
         SucuriScanEvent::installScheduledTask();
 
-        if (SucuriScan::supportReverseProxy() || SucuriScan::isBehindFirewall()) {
+        if (SucuriScan::supportReverseProxy()) {
             $remote_addr = SucuriScanRequest::server('REMOTE_ADDR');
             $_SERVER['SUCURIREAL_REMOTE_ADDR'] = $remote_addr;
             $_SERVER['REMOTE_ADDR'] = SucuriScan::getRemoteAddr();
@@ -207,7 +207,7 @@ class SucuriScanInterface
 
         if (!SucuriScanFileInfo::isSplAvailable()) {
             /* display a warning when system dependencies are not met */
-            self::error(__('The plugin requires PHP 5 >= 5.3.0 - OR - PHP 7', 'sucuri-scanner'));
+            self::error(__('The plugin requires PHP 7.4 or greater', 'sucuri-scanner'));
         }
 
         $filename = SucuriScanOption::optionsFilePath();
@@ -398,7 +398,7 @@ class SucuriScanInterface
         $user_id = get_current_user_id();
 
         if (!$user_id) {
-            return 'dark';
+            return 'light';
         }
 
         $current_theme = get_user_meta($user_id, 'sucuriscan_preferred_theme', true);
@@ -407,6 +407,6 @@ class SucuriScanInterface
             return $current_theme;
         }
 
-        return 'dark';
+        return 'light';
     }
 }

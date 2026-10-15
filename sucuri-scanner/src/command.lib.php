@@ -144,8 +144,8 @@ class SucuriScanCommand extends SucuriScan
             @fclose($handle); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
         }
 
-        @unlink($a); /* delete original file */
-        @unlink($b); /* delete modified file */
+        @unlink($a); /* delete original file */ // phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
+        @unlink($b); /* delete modified file */ // phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
 
         if (!is_array($output) || empty($output)) {
             return SucuriScanInterface::error('There are no differences.');
@@ -166,6 +166,7 @@ class SucuriScanCommand extends SucuriScan
                 $cssclass .= "\x20" . SUCURISCAN . '-diff-header';
             } elseif ($number === 3) {
                 $cssclass .= "\x20" . SUCURISCAN . '-diff-header';
+            // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedElseif -- empty on purpose: it guards $line[0] below.
             } elseif ($line === '') {
                 /* do not touch empty lines */
             } elseif ($line[0] === '-') {

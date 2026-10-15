@@ -116,6 +116,7 @@ class SucuriScanOption extends SucuriScanRequest
             'sucuriscan_twofactor_mode' => 'disabled',
             'sucuriscan_twofactor_users' => array(),
             'sucuriscan_preferred_theme' => 'dark',
+            'sucuriscan_hardening_xmlrpc' => 'disabled',
             'sucuriscan_headers_cache_control' => 'disabled',
             'sucuriscan_headers_cache_control_options' => array(
                 'front_page' => array(
@@ -872,12 +873,12 @@ class SucuriScanOption extends SucuriScanRequest
      */
     public static function maybeHealMisplacedPluginSalt()
     {
-        if (function_exists('wp_doing_ajax') && wp_doing_ajax()) { 
-            return; 
+        if (function_exists('wp_doing_ajax') && wp_doing_ajax()) {
+            return;
         }
-        
+
         if (function_exists('wp_doing_cron') && wp_doing_cron()) {
-            return; 
+            return;
         }
         if (!SucuriScanPermissions::canManagePlugin()) {
             return;
@@ -1146,15 +1147,11 @@ class SucuriScanOption extends SucuriScanRequest
      */
     private static function getSecretRandomBytes($length)
     {
-        if (function_exists('random_bytes')) {
+        try {
             return random_bytes($length);
+        } catch (Exception $e) {
+            return false;
         }
-
-        if (function_exists('openssl_random_pseudo_bytes')) {
-            return openssl_random_pseudo_bytes($length);
-        }
-
-        return false;
     }
 
     /**

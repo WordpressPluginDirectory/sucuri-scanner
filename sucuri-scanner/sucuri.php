@@ -8,11 +8,13 @@
  * Author: Sucuri Inc.
  * Text Domain: sucuri-scanner
  * Domain Path: /lang
- * Version: 2.7.2
+ * Version: 2.8.1
+ * Requires at least: 6.0
+ * Requires PHP: 7.4
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
- * PHP version 7
+ * PHP version 7.4
  *
  * @category   Library
  * @package    Sucuri
@@ -87,7 +89,7 @@ define('SUCURISCAN', 'sucuriscan');
 /**
  * Current version of the plugin's code.
  */
-define('SUCURISCAN_VERSION', '2.7.2');
+define('SUCURISCAN_VERSION', '2.8.1');
 
 /**
  * Defines the human readable name of the plugin.
@@ -151,6 +153,14 @@ define('SUCURISCAN_AUDITLOGS_PER_PAGE', 25);
 define('SUCURISCAN_INTEGRITY_FILES_PER_PAGE', 15);
 
 /**
+ * The maximum quantity of users that will be displayed per page in the
+ * Two-Factor Authentication users table. Keeping this bounded prevents the
+ * page from loading every registered user at once, which previously broke
+ * the 2FA page on sites with hundreds/thousands of users (e.g. WooCommerce).
+ */
+define('SUCURISCAN_TWOFACTOR_USERS_PER_PAGE', 25);
+
+/**
  * The maximum quantity of buttons in the paginations.
  */
 define('SUCURISCAN_MAX_PAGINATION_BUTTONS', 16);
@@ -193,7 +203,7 @@ if (!array_key_exists('SERVER_NAME', $_SERVER)) {
 /* Load plugin translations */
 function sucuriscan_load_plugin_textdomain()
 {
-    load_plugin_textdomain('sucuri-scanner', false, basename(dirname(__FILE__)) . '/lang/');
+    load_plugin_textdomain('sucuri-scanner', false, basename(dirname(__FILE__)) . '/lang/'); // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- loads the bundled lang/ directory
 }
 
 add_action('plugins_loaded', 'sucuriscan_load_plugin_textdomain');
@@ -226,6 +236,7 @@ require_once 'src/cachecontrol.lib.php';
 require_once 'src/csp.lib.php';
 require_once 'src/cors.lib.php';
 require_once 'src/totp.core.php';
+require_once 'src/backupcodes.lib.php';
 require_once 'src/topt.lib.php';
 
 /* Load page and ajax handlers */
